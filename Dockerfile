@@ -1,3 +1,4 @@
+# Build forced: 2026-03-14
 FROM runpod/worker-comfyui:5.7.1-base
 
 # Completely replace ComfyUI with latest version
