@@ -1,0 +1,389 @@
+{
+  "input": {
+    "workflow": {
+      "9": {
+        "inputs": {
+          "filename_prefix": "Flux2_dev",
+          "images": [
+            "104",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "SaveImage"
+        }
+      },
+      "100": {
+        "inputs": {
+          "value": 4,
+          "conditioning": [
+            "166",
+            0
+          ]
+        },
+        "class_type": "FluxGuidance",
+        "_meta": {
+          "title": "FluxGuidance"
+        }
+      },
+      "102": {
+        "inputs": {
+          "filename": "flux2-vae.safetensors"
+        },
+        "class_type": "VAELoader",
+        "_meta": {
+          "title": "VAELoader"
+        }
+      },
+      "104": {
+        "inputs": {
+          "samples": [
+            "133",
+            0
+          ],
+          "vae": [
+            "102",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "107": {
+        "inputs": {
+          "text": "YOU ARE A PROFESSIONAL PHOTO EDITOR, COMPOSITOR, AND FACE RESTORER.\n\nSUBJECTS (Image 1) + BACKGROUND (Image 2) → FINAL COMPOSITE\n\nIDENTITY & FACES:\n- Preserve every subject's facial identity 100% — no warping, \n  blending, or distortion of any face\n- Restore and sharpen faces if needed after compositing\n- Body proportions must remain natural and unchanged\n\nPOSITIONING & GROUNDING:\n- Every subject must be firmly grounded on the floor/ground plane \n  of the background image\n- Match the floor perspective — all subjects share the same ground \n  horizon line\n- Standing subjects: both feet fully flat on the ground, no floating\n- Sitting/floor subjects: full body contact with the ground surface\n- Adjust each subject's vertical position until ground contact is \n  physically convincing\n\nFURNITURE & PROPS:\n- If any subject is seated on furniture (chair, bench, sofa, stool), \n  include that furniture in the final composite\n- Remove any carpets, rugs, or floor coverings from Image 1\n\nSHADOWS & LIGHTING:\n- Analyze the light source direction and quality in Image 2\n- Apply matching shadows beneath every subject's feet and body\n- Shadow softness, length, and direction must be consistent across \n  all subjects and match the background lighting\n- Match skin tones and clothing colors to the ambient light color \n  temperature of Image 2\n\nBLENDING & INTEGRATION:\n- Seamlessly blend subject edges into the background — no harsh \n  cutout lines or halos\n- Match grain, noise, and texture between subjects and background\n- Color grade subjects to match the mood and tones of Image 2\n- No vignette unless naturally present in Image 2\n\nCOMPOSITION:\n- Subjects are the hero — they should be prominent and well-lit\n- Subjects must appear in FRONT of all background elements\n- Maintain original subject poses exactly as they appear in Image 1\n- Accurate scale and perspective relative to the background scene\n\nQUALITY CHECK:\n- No floating subjects\n- No distorted faces or bodies\n- No visible compositing artifacts\n- Photorealistic final result",
+          "clip": [
+            "146",
+            0
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "CLIP Text Encode (Positive Prompt)"
+        }
+      },
+      "112": {
+        "inputs": {
+          "conditioning": [
+            "107",
+            0
+          ],
+          "latent": [
+            "169",
+            0
+          ]
+        },
+        "class_type": "ReferenceLatent",
+        "_meta": {
+          "title": "ReferenceLatent"
+        }
+      },
+      "115": {
+        "inputs": {
+          "text": "lanczos",
+          "image": [
+            "151",
+            0
+          ],
+          "megapixels": [
+            "135",
+            0
+          ]
+        },
+        "class_type": "ImageScaleToTotalPixels",
+        "_meta": {
+          "title": "ImageScaleToTotalPixels"
+        }
+      },
+      "125": {
+        "inputs": {
+          "pixels": [
+            "115",
+            0
+          ],
+          "vae": [
+            "102",
+            0
+          ]
+        },
+        "class_type": "VAEEncode",
+        "_meta": {
+          "title": "VAEEncode"
+        }
+      },
+      "126": {
+        "inputs": {
+          "filename": "flux-2-klein-9b.safetensors"
+        },
+        "class_type": "UNETLoader",
+        "_meta": {
+          "title": "UNETLoader"
+        }
+      },
+      "133": {
+        "inputs": {
+          "seed": 833334570846979,
+          "steps": 4,
+          "cfg": 1,
+          "sampler_name": "euler",
+          "scheduler": "simple",
+          "denoise": 1,
+          "model": [
+            "152",
+            0
+          ],
+          "positive": [
+            "100",
+            0
+          ],
+          "negative": [
+            "136",
+            0
+          ],
+          "latent_image": [
+            "167",
+            0
+          ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+          "title": "KSampler"
+        }
+      },
+      "135": {
+        "inputs": {
+          "value": 1
+        },
+        "class_type": "PrimitiveFloat",
+        "_meta": {
+          "title": "Float (Set Megapixels)"
+        }
+      },
+      "136": {
+        "inputs": {
+          "conditioning": [
+            "107",
+            0
+          ]
+        },
+        "class_type": "ConditioningZeroOut",
+        "_meta": {
+          "title": "ConditioningZeroOut"
+        }
+      },
+      "146": {
+        "inputs": {
+          "filename": "qwen_3_8b.safetensors"
+        },
+        "class_type": "CLIPLoader",
+        "_meta": {
+          "title": "CLIPLoader"
+        }
+      },
+      "147": {
+        "inputs": {
+          "samples": [
+            "125",
+            0
+          ],
+          "vae": [
+            "102",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "148": {
+        "inputs": {
+          "image": [
+            "161",
+            0
+          ]
+        },
+        "class_type": "GetImageSize",
+        "_meta": {
+          "title": "GetImageSize"
+        }
+      },
+      "149": {
+        "inputs": {
+          "upscale_method": "lanczos",
+          "width": [
+            "148",
+            0
+          ],
+          "height": [
+            "148",
+            1
+          ],
+          "crop": "center",
+          "image": [
+            "151",
+            0
+          ]
+        },
+        "class_type": "ImageScale",
+        "_meta": {
+          "title": "ImageScale"
+        }
+      },
+      "151": {
+        "inputs": {
+          "image": "TEST-1.jpg"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+          "title": "Load Reference Image 1"
+        }
+      },
+      "152": {
+        "inputs": {
+          "filename": "Klein-9b-consistency.safetensors",
+          "model": [
+            "126",
+            0
+          ]
+        },
+        "class_type": "LoraLoaderModelOnly",
+        "_meta": {
+          "title": "LoraLoaderModelOnly"
+        }
+      },
+      "161": {
+        "inputs": {
+          "text": "lanczos",
+          "image": [
+            "163",
+            0
+          ],
+          "megapixels": [
+            "135",
+            0
+          ]
+        },
+        "class_type": "ImageScaleToTotalPixels",
+        "_meta": {
+          "title": "Scale Input Image"
+        }
+      },
+      "162": {
+        "inputs": {},
+        "class_type": "VAEEncode",
+        "_meta": {
+          "title": "Encode Input (img2img latent)"
+        }
+      },
+      "163": {
+        "inputs": {
+          "image": "Gemini_Generated_Image_h2gdgnh2gdgnh2gd.png"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+          "title": "Load Reference Image 2"
+        }
+      },
+      "164": {
+        "inputs": {
+          "upscale_method": "lanczos",
+          "width": [
+            "148",
+            0
+          ],
+          "height": [
+            "148",
+            1
+          ],
+          "crop": "center",
+          "image": [
+            "163",
+            0
+          ]
+        },
+        "class_type": "ImageScale",
+        "_meta": {
+          "title": "Scale Reference 2"
+        }
+      },
+      "165": {
+        "inputs": {},
+        "class_type": "VAEEncode",
+        "_meta": {
+          "title": "Encode Reference 2"
+        }
+      },
+      "166": {
+        "inputs": {
+          "conditioning": [
+            "112",
+            0
+          ],
+          "latent": [
+            "168",
+            0
+          ]
+        },
+        "class_type": "ReferenceLatent",
+        "_meta": {
+          "title": "Reference Latent 2"
+        }
+      },
+      "167": {
+        "inputs": {
+          "value": 512,
+          "pixels": [
+            "161",
+            0
+          ],
+          "vae": [
+            "102",
+            0
+          ]
+        },
+        "class_type": "VAEEncodeTiled",
+        "_meta": {
+          "title": "VAEEncodeTiled"
+        }
+      },
+      "168": {
+        "inputs": {
+          "value": 512,
+          "pixels": [
+            "164",
+            0
+          ],
+          "vae": [
+            "102",
+            0
+          ]
+        },
+        "class_type": "VAEEncodeTiled",
+        "_meta": {
+          "title": "VAEEncodeTiled"
+        }
+      },
+      "169": {
+        "inputs": {
+          "value": 512,
+          "pixels": [
+            "149",
+            0
+          ],
+          "vae": [
+            "102",
+            0
+          ]
+        },
+        "class_type": "VAEEncodeTiled",
+        "_meta": {
+          "title": "VAEEncodeTiled"
+        }
+      }
+    }
+  }
+}
