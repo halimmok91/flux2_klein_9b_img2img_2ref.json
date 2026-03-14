@@ -1,16 +1,15 @@
 FROM runpod/worker-comfyui:5.7.1-base
 
-# Update ComfyUI to latest version (adds flux2 CLIPLoader support)
-RUN cd /comfyui && git fetch --all && git pull origin master
+# Remove old ComfyUI and install latest from scratch
+RUN pip install comfy-cli && \
+    comfy --skip-prompt install --nvidia --version nightly --fast-deps 2>/dev/null || true
 
-# Install updated dependencies
-RUN cd /comfyui && pip install -r requirements.txt -q
+# Force upgrade ComfyUI via pip
+RUN pip install --upgrade comfyui
 
-# Also download missing text encoder
-RUN comfy model download \
-    --url https://huggingface.co/black-forest-labs/FLUX.2-klein-9B/resolve/main/qwen_3_8b_fp8mixed.safetensors \
-    --relative-path models/text_encoders \
-    --filename qwen_3_8b.safetensors
+# Install comfyui from git directly
+RUN pip uninstall comfyui -y 2>/dev/null || true && \
+    pip install git+https://github.com/comfyanonymous/ComfyUI.git
 
-# Remove test input to avoid conflicts
+# Remove test input
 RUN rm -f /runpod-volume/.runpod/tests.json
